@@ -20,6 +20,30 @@ def index():
     return render_template('blog/index.html', posts=posts)
 
 
+@bp.route('/profile', methods=('GET', 'POST'))
+@login_required
+def profile():
+    db = get_db()
+    posts = db.execute(
+        'SELECT p.id, title, body, created, author_id, username'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?'
+        ' ORDER BY created DESC',
+        (g.user['id'],)
+    ).fetchall()
+    return render_template('profile/profile.html', posts=posts)
+
+
+@bp.route('/leaderboard', methods=('GET', 'POST'))
+def leaderboard():
+    db = get_db()
+    users = db.execute(
+        'SELECT *'
+        ' FROM user'
+    ).fetchall()
+    return render_template('leaderboard/leaderboard.html', users=users)
+
+
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():
@@ -51,6 +75,23 @@ def get_post(id, check_author=True):
         'SELECT p.id, title, body, created, author_id, username'
         ' FROM post p JOIN user u ON p.author_id = u.id'
         ' WHERE p.id = ?',
+        (id,)
+    ).fetchone()
+
+    if post is None:
+        abort(404, f"Post id {id} doesn't exist.")
+
+    if check_author and post['author_id'] != g.user['id']:
+        abort(403)
+
+    return post
+
+
+def get_post_by_user(id, check_author=True):
+    post = get_db().execute(
+        'SELECT p.id, title, body, created, author_id, username'
+        ' FROM post p JOIN user u ON p.author_id = u.id'
+        ' WHERE u.id = ?',
         (id,)
     ).fetchone()
 
