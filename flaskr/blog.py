@@ -20,30 +20,6 @@ def index():
     return render_template('blog/index.html', posts=posts)
 
 
-@bp.route('/profile', methods=('GET', 'POST'))
-@login_required
-def profile():
-    db = get_db()
-    posts = db.execute(
-        'SELECT p.id, title, body, created, author_id, username'
-        ' FROM post p JOIN user u ON p.author_id = u.id'
-        ' WHERE u.id = ?'
-        ' ORDER BY created DESC',
-        (g.user['id'],)
-    ).fetchall()
-    return render_template('profile/profile.html', posts=posts)
-
-
-@bp.route('/leaderboard', methods=('GET', 'POST'))
-def leaderboard():
-    db = get_db()
-    users = db.execute(
-        'SELECT *'
-        ' FROM user'
-    ).fetchall()
-    return render_template('leaderboard/leaderboard.html', users=users)
-
-
 @bp.route('/create', methods=('GET', 'POST'))
 @login_required
 def create():

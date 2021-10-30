@@ -5,28 +5,20 @@
 {% endblock %}
 
 {% block content %}
-
-{% for user in users %}
     <article class="users">
-        <p class="body">{{user['id']}}. {{ user['username'] }}</p>
-    </article>
-  {% endfor %}
-
-<table>
-    <tr>
-      <th>Company</th>
-      <th>Contact</th>
-      <th>Country</th>
-    </tr>
-    <tr>
-      <td>Alfreds Futterkiste</td>
-      <td>Maria Anders</td>
-      <td>Germany</td>
-    </tr>
-    <tr>
-      <td>Centro comercial Moctezuma</td>
-      <td>Francisco Chang</td>
-      <td>Mexico</td>
-    </tr>
-  </table>
+    <table>
+      <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+      {% for user in users %}
+        <tr>
+          <td>{{user['id']}}</td>
+          <td>{{user['username']}}</td>
+          <td>{{user['score']}}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </article>
 {% endblock %}
