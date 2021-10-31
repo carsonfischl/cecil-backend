@@ -5,19 +5,33 @@
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="username">Username</label>
-    <input name="username" id="username" required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
-    <label for="email">email</label>
-    <input name="email" id="email" required>
-    <label for="city">City</label>
-    <input name="city" id="city">
-    <label for="state">State/Province</label>
-    <input name="country" id="country">
-    <label for="country">Country</label>
-    <input name="state" id="state">
+  <form method="post" enctype="multipart/form-data" id="reg-form">
+    <div class="form-part" id="usernamediv">
+      <label for="username">Username</label>
+      <input name="username" id="username" required>
+    </div>
+    <div class="form-part" id="passworddiv">
+      <label for="password">Password</label>
+      <input name="password" id="password" type="password" required>
+      <label for="confirm-password">Confirm Password</label>
+      <input name="confirm-password" id="confirm-password" type="password" required>
+    </div>
+    <div class="form-part" id="emaildiv">
+      <label for="email">Email</label>
+      <input name="email" id="email" type="email" required>
+    </div>
+    <div class="form-part" id="addressdiv">
+      <label for="city">City</label>
+      <input name="city" id="city">
+      <label for="state">State/Province</label>
+      <input name="state" id="state">
+      <label for="country">Country</label>
+      <input name="country" id="country">
+    </div>
+    <div class="form-part" id="pic-uploaddiv">
+      <label for="myfile">Add a profile pic:</label>
+      <input type="file" id="profile-pic" name="profile-pic">
+    </div>
     <input type="submit" value="Register">
   </form>
 {% endblock %}
