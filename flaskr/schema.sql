@@ -3,7 +3,11 @@ DROP TABLE IF EXISTS post;
 CREATE TABLE user (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE NOT NULL,
-    password TEXT NOT NULL
+    password TEXT NOT NULL,
+    email TEXT UNIQUE NOT NULL,
+    city TEXT,
+    state TEXT,
+    country TEXT
 );
 CREATE TABLE post (
     id INTEGER PRIMARY KEY AUTOINCREMENT,

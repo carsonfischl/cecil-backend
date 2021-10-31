@@ -15,6 +15,10 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        email = request.form['email']
+        city = request.form['city']
+        state = request.form['state']
+        country = request.form['country']
         db = get_db()
         error = None
 
@@ -22,13 +26,14 @@ def register():
             error = 'Username is required.'
         elif not password:
             error = 'Password is required.'
+        elif not email:
+            error = 'Email is required.'
 
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
-                )
+                    "INSERT INTO user (username, password, email, city, state, country) VALUES (?, ?, ?, ?, ?, ?)",
+                    (username, generate_password_hash(password), email, city, state, country)),
                 db.commit()
             except db.IntegrityError:
                 error = f"User {username} is already registered."
@@ -40,7 +45,7 @@ def register():
     return render_template('auth/register.html')
 
 
-@bp.route('/login', methods=('GET', 'POST'))
+@ bp.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
         username = request.form['username']
@@ -66,7 +71,7 @@ def login():
     return render_template('auth/login.html')
 
 
-@bp.before_app_request
+@ bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
 
@@ -78,14 +83,14 @@ def load_logged_in_user():
         ).fetchone()
 
 
-@bp.route('/logout')
+@ bp.route('/logout')
 def logout():
     session.clear()
     return redirect(url_for('index'))
 
 
 def login_required(view):
-    @functools.wraps(view)
+    @ functools.wraps(view)
     def wrapped_view(**kwargs):
         if g.user is None:
             return redirect(url_for('auth.login'))
