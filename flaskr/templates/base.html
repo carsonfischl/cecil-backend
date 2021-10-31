@@ -4,14 +4,16 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Cecil</a>
+      <a class="navbar-brand" href="/">Cecil</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/">Home</a>
+            {% if g.user %}
+              <a class="action nav-link active" href="{{ url_for('blog.create') }}">New</a>
+            {% endif %}
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/leaderboard">Leaderboard</a>
