@@ -39,3 +39,17 @@ article {
 .input-title {
   margin-bottom: 1rem;
 }
+
+#leaderboard-div {
+  margin: auto;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}
+
+table {
+  margin: auto;
+  align-items: center;
+  align-content: center;
+  width: 100%;
+}

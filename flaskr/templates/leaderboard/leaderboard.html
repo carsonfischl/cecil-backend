@@ -6,19 +6,21 @@
 
 {% block content %}
     <article class="users" id="leaderboard">
-    <table>
-      <tr>
-        <th>Rank</th>
-        <th>Name</th>
-        <th>Score</th>
-      </tr>
-      {% for user in users %}
-        <tr>
-          <td>{{user['id']}}</td>
-          <td><img src="static/images/{{ user.profile_pic }}" alt="profile_pic" width="25" height="25" id="main-profile-pic">   {{user['username']}}</td>
-          <td>{{user['score']}}</td>
-        </tr>
-      {% endfor %}
-    </table>
+      <div class="leaderboard-div">
+      <table>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+          {% for user in users %}
+            <tr>
+              <td>{{user['id']}}</td>
+              <td><img src="static/images/{{ user.profile_pic }}" alt="profile_pic" width="25" height="25" id="main-profile-pic">   {{user['username']}}</td>
+              <td>{{user['score']}}</td>
+            </tr>
+          {% endfor %}
+        </table>
+    </div>
   </article>
 {% endblock %}
