@@ -22,3 +22,20 @@ article {
   margin: auto;
   align-items: center;
 }
+
+#main-profile-pic {
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+#title-div {
+  margin: 2rem;
+}
+
+#body-div {
+  margin: 2rem;
+}
+
+.input-title {
+  margin-bottom: 1rem;
+}

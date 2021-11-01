@@ -5,11 +5,12 @@
 {% endblock %}
 
 {% block content %}
-    <div class="profile-pic"></div>
+    <div class="profile-pic">
+        <img src="static/images/{{ user.profile_pic }}" alt="{{ user.profile_pic }}" width="120" height="120" id="main-profile-pic">
+    </div>
     <div class="profile-info">
         <h3>{{ user.username }}</h3>
         <h6>{{ user.email }}</h6>
         <h6>{{ user.city }}, {{user.state}}, {{user.country}}</h6>
-        <img src="static/images/{{ user.profile_pic }}" alt="profile pic">
     </div>
 {% endblock %}

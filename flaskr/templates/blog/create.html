@@ -6,10 +6,18 @@
 
 {% block content %}
   <form method="post" enctype="multipart/form-data">
-    <label for="title">Title</label>
-    <input name="title" id="title" value="{{ request.form['title'] }}" required>
-    <label for="body">Body</label>
-    <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    <div class="mb-3" id="post-img">
+      <label for="myfile" class="input-title">Add a pic:</label> <br>
+      <input type="file" id="file" name="file">
+    </div>
+    <div class="mb-3" id="title-div">
+      <label for="title" class="input-title">Title</label>
+      <input name="title" id="title" value="{{ request.form['title'] }}" required>
+    </div>
+    <div class="mb-3" id="body-div">
+      <label for="body" class="input-title">Body</label>
+      <textarea name="body" id="body">{{ request.form['body'] }}</textarea>
+    </div>
     <input type="submit" value="Save">
   </form>
 {% endblock %}
