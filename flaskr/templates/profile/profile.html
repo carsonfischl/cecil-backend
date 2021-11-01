@@ -7,8 +7,9 @@
 {% block content %}
     <div class="profile-pic"></div>
     <div class="profile-info">
-        <h1>{{ user.username }}</h1>
-        <h2>{{ user.email }}</h2>
-        <h4>{{ user.city }}, {{user.state}}, {{user.country}}</h4>
+        <h3>{{ user.username }}</h3>
+        <h6>{{ user.email }}</h6>
+        <h6>{{ user.city }}, {{user.state}}, {{user.country}}</h6>
+        <img src="static/images/{{ user.profile_pic }}" alt="profile pic">
     </div>
 {% endblock %}

@@ -1,13 +1,20 @@
 import functools
-
-from flask import (
-    Blueprint, flash, g, redirect, render_template, request, session, url_for
-)
+from random import random, seed
+import os
+from flask import (Blueprint, flash, g, redirect,
+                   render_template, request, session, url_for)
 from werkzeug.security import check_password_hash, generate_password_hash
-
+from werkzeug.utils import secure_filename
+import uuid
 from flaskr.db import get_db
 
 bp = Blueprint('auth', __name__, url_prefix='/auth')
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
 @bp.route('/register', methods=('GET', 'POST'))
@@ -19,6 +26,25 @@ def register():
         city = request.form['city']
         state = request.form['state']
         country = request.form['country']
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        file_ext = file.filename.rsplit('.', 1)[1].lower()
+        # If the user does not select a file, the browser submits an
+        # empty file without a filename.
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = str(uuid.uuid4()) + '.' + file_ext
+            basedir = os.path.abspath(os.path.dirname(
+                __file__)) + '/static/images'
+            file.save(os.path.join(
+                basedir, filename))
+            file_loc = os.path.join(
+                basedir, filename)
+
         db = get_db()
         error = None
 
@@ -32,8 +58,8 @@ def register():
         if error is None:
             try:
                 db.execute(
-                    "INSERT INTO user (username, password, email, city, state, country) VALUES (?, ?, ?, ?, ?, ?)",
-                    (username, generate_password_hash(password), email, city, state, country)),
+                    "INSERT INTO user (username, password, email, city, state, country, profile_pic) VALUES (?, ?, ?, ?, ?, ?, ?)",
+                    (username, generate_password_hash(password), email, city, state, country, filename)),
                 db.commit()
             except db.IntegrityError:
                 error = f"User {username} is already registered."

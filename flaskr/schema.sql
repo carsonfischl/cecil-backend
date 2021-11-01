@@ -7,7 +7,8 @@ CREATE TABLE user (
     email TEXT UNIQUE NOT NULL,
     city TEXT,
     state TEXT,
-    country TEXT
+    country TEXT,
+    profile_pic TEXT
 );
 CREATE TABLE post (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
