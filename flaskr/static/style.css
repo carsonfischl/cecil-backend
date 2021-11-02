@@ -53,3 +53,8 @@ table {
   align-content: center;
   width: 100%;
 }
+
+#post-pic {
+  overflow: hidden;
+  clip: rect(0, 100, 100, 0);
+}
