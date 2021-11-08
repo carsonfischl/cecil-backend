@@ -17,5 +17,6 @@ CREATE TABLE post (
     title TEXT NOT NULL,
     body TEXT NOT NULL,
     post_image TEXT,
+    likes INTEGER NOT NULL DEFAULT 0,
     FOREIGN KEY (author_id) REFERENCES user (id)
 );
