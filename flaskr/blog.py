@@ -136,13 +136,3 @@ def delete(id):
     db.execute('DELETE FROM post WHERE id = ?', (id,))
     db.commit()
     return redirect(url_for('blog.index'))
-
-
-@ bp.route('/<int:id>/like', methods=('POST',))
-@ login_required
-def like(id):
-    get_post(id)
-    db = get_db()
-    db.execute('UPDATE post SET likes = likes + 1 WHERE id = ?', (id,))
-    db.commit()
-    return redirect(url_for('blog.index'))
